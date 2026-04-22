@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Make Money Online Challenge 3.0</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0a;
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+  }
+
+  /* Top browser bar */
+  .browser-bar {
+    background: #1a1a2e;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    color: #ccc;
+  }
+  .browser-bar .domain {
+    font-size: 11px;
+    color: #aaa;
+    text-align: center;
+    flex: 1;
+  }
+  .browser-bar .title {
+    font-size: 13px;
+    color: #fff;
+    text-align: center;
+    display: block;
+  }
+  .browser-icons {
+    display: flex;
+    gap: 10px;
+    color: #aaa;
+    font-size: 16px;
+  }
+
+  /* Hero money image section */
+  .hero-section {
+    position: relative;
+    width: 100%;
+    height: 340px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0d1b0d 0%, #0a2a0a 30%, #1a3a00 60%, #0d1b0d 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Animated money rain background */
+  .money-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .bill {
+    position: absolute;
+    width: 70px;
+    height: 32px;
+    border-radius: 4px;
+    background: linear-gradient(135deg, #1a5c1a, #2d8a2d, #1a5c1a);
+    border: 1px solid #3aaa3a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: bold;
+    color: #7eff7e;
+    text-shadow: 0 0 6px #00ff00;
+    box-shadow: 0 0 10px rgba(0,255,0,0.3), inset 0 0 8px rgba(0,100,0,0.4);
+    animation: fallBill linear infinite;
+    opacity: 0.85;
+  }
+
+  @keyframes fallBill {
+    0% { transform: translateY(-60px) rotate(var(--rot-start)); opacity: 0; }
+    10% { opacity: 0.9; }
+    90% { opacity: 0.9; }
+    100% { transform: translateY(360px) rotate(var(--rot-end)); opacity: 0; }
+  }
+
+  /* Coins */
+  .coin {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #ffe44d, #d4a000, #8a6500);
+    border: 2px solid #ffd700;
+    box-shadow: 0 0 12px rgba(255,215,0,0.6), inset 0 0 6px rgba(255,255,100,0.3);
+    animation: fallCoin linear infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: #8a6500;
+    font-weight: bold;
+  }
+
+  @keyframes fallCoin {
+    0% { transform: translateY(-40px) rotateY(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(360px) rotateY(720deg); opacity: 0; }
+  }
+
+  /* Central money pile graphic */
+  .money-center {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .dollar-sign-big {
+    font-size: 90px;
+    font-weight: 900;
+    color: transparent;
+    background: linear-gradient(180deg, #ffd700 0%, #ffaa00 40%, #ff8800 70%, #cc6600 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: none;
+    filter: drop-shadow(0 0 20px rgba(255,180,0,0.8)) drop-shadow(0 4px 8px rgba(0,0,0,0.8));
+    animation: pulse 2s ease-in-out infinite;
+    line-height: 1;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(255,180,0,0.8)) drop-shadow(0 4px 8px rgba(0,0,0,0.8)); }
+    50% { transform: scale(1.05); filter: drop-shadow(0 0 35px rgba(255,200,0,1)) drop-shadow(0 4px 12px rgba(0,0,0,0.9)); }
+  }
+
+  .stacked-bills {
+    display: flex;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    align-items: center;
+  }
+
+  .stack-bill {
+    width: 64px;
+    height: 28px;
+    border-radius: 3px;
+    background: linear-gradient(135deg, #1d6b1d, #2e9a2e, #1d6b1d);
+    border: 1.5px solid #4cc94c;
+    box-shadow: 0 2px 6px rgba(0,150,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: bold;
+    color: #9effa0;
+  }
+
+  .stack-coin-row {
+    display: flex;
+    gap: 3px;
+  }
+
+  .mini-coin {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #ffe44d, #d4a000);
+    border: 1.5px solid #ffd700;
+    box-shadow: 0 0 6px rgba(255,215,0,0.5);
+  }
+
+  /* Glow overlay */
+  .glow-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(0,80,0,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* Title banner */
+  .title-overlay {
+    position: absolute;
+    bottom: 12px;
+    left: 0; right: 0;
+    text-align: center;
+    z-index: 20;
+  }
+
+  /* Event badge */
+  .event-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: linear-gradient(90deg, #0d2d0d, #1a4a1a);
+    border: 1.5px solid #2a7a2a;
+    border-radius: 30px;
+    padding: 10px 20px;
+    margin: 0 16px;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+  }
+
+  .live-dot {
+    width: 10px;
+    height: 10px;
+    background: #ff3333;
+    border-radius: 50%;
+    animation: blink 1.2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .event-badge span { color: #ddd; font-size: 12px; }
+  .event-badge strong { color: #fff; font-size: 13px; }
+
+  /* Main content */
+  .content {
+    padding: 24px 20px 0;
+    text-align: center;
+  }
+
+  .main-headline {
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 1.2;
+    margin: 18px 0 14px;
+    color: #fff;
+  }
+
+  .main-headline .ai-text {
+    color: #00d4ff;
+  }
+
+  .sub-headline {
+    font-size: 15px;
+    color: #ccc;
+    line-height: 1.65;
+    margin-bottom: 14px;
+  }
+
+  .disclaimer {
+    font-size: 10px;
+    color: #888;
+    line-height: 1.5;
+    text-align: left;
+    margin-bottom: 22px;
+    padding: 0 4px;
+  }
+
+  .disclaimer strong { font-weight: bold; }
+
+  /* CTA Button */
+  .cta-btn {
+    display: block;
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(135deg, #f5d800, #ffec40, #f5d800);
+    border: none;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    color: #000;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(245,216,0,0.4);
+    transition: transform 0.15s, box-shadow 0.15s;
+    margin-bottom: 24px;
+  }
+
+  .cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(245,216,0,0.55);
+  }
+
+  /* Feature icons */
+  .features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 20px;
+    padding-bottom: 36px;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    color: #ddd;
+  }
+
+  .feature-icon {
+    font-size: 18px;
+    color: #4a90d9;
+  }
+
+  /* Challenge logo text */
+  .challenge-logo {
+    margin: 18px auto 10px;
+    text-align: center;
+  }
+
+  .make-money-text {
+    font-size: 13px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 2px;
+    display: block;
+    text-shadow: 0 0 8px rgba(255,255,255,0.4);
+  }
+
+  .online-text {
+    font-size: 38px;
+    font-weight: 900;
+    color: transparent;
+    background: linear-gradient(90deg, #00aaff, #00e5ff, #00aaff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    display: block;
+    line-height: 1;
+    filter: drop-shadow(0 0 10px rgba(0,180,255,0.6));
+    letter-spacing: 1px;
+  }
+
+  .challenge-text {
+    font-size: 16px;
+    font-style: italic;
+    color: #fff;
+    letter-spacing: 1px;
+  }
+
+  .version-text {
+    font-size: 28px;
+    font-weight: 900;
+    color: #fff;
+  }
+
+  .dollar-signs {
+    font-size: 22px;
+    color: #00d4ff;
+    font-weight: 900;
+    letter-spacing: -2px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Browser chrome bar -->
+<div class="browser-bar">
+  <span style="font-size:18px; cursor:pointer;">✕</span>
+  <span style="font-size:18px; cursor:pointer;">⌄</span>
+  <div style="flex:1; text-align:center;">
+    <span class="title">Make Money O…</span>
+    <span class="domain">event.monetise.com</span>
+  </div>
+  <div class="browser-icons">
+    <span>⬆</span>
+    <span>🔖</span>
+    <span>⋮</span>
+  </div>
+</div>
+
+<!-- Hero: Money visual replacing the man -->
+<div class="hero-section">
+  <!-- Animated money rain -->
+  <div class="money-bg" id="moneyBg"></div>
+  <div class="glow-overlay"></div>
+
+  <!-- Central money graphic -->
+  <div class="money-center">
+    <div class="dollar-sign-big">$$$</div>
+    <div class="stacked-bills">
+      <div class="stack">
+        <div class="stack-bill">$100</div>
+        <div class="stack-bill">$100</div>
+        <div class="stack-bill">$100</div>
+        <div class="stack-coin-row">
+          <div class="mini-coin"></div>
+          <div class="mini-coin"></div>
+          <div class="mini-coin"></div>
+        </div>
+      </div>
+      <div class="stack" style="margin-top: 12px;">
+        <div class="stack-bill">$50</div>
+        <div class="stack-bill">$50</div>
+        <div class="stack-coin-row">
+          <div class="mini-coin"></div>
+          <div class="mini-coin"></div>
+        </div>
+      </div>
+      <div class="stack">
+        <div class="stack-bill">$100</div>
+        <div class="stack-bill">$100</div>
+        <div class="stack-bill">$100</div>
+        <div class="stack-coin-row">
+          <div class="mini-coin"></div>
+          <div class="mini-coin"></div>
+          <div class="mini-coin"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Challenge logo overlay at bottom of hero -->
+  <div class="title-overlay">
+    <div class="challenge-logo">
+      <span class="make-money-text">MAKE MONEY</span>
+      <span><span class="dollar-signs">$$$</span><span class="online-text">ONLINE</span></span>
+      <span><span class="challenge-text">Challenge </span><span class="version-text">3.0</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- Main content -->
+<div class="content">
+  <!-- Live event badge -->
+  <div class="event-badge">
+    <div class="live-dot"></div>
+    <span>LIVE VIRTUAL EVENT: </span>
+    <strong>JOIN THE THE COMMUNITY AND PROFIT MORE ALL FOR FREE</strong>
+  </div>
+
+  <h1 class="main-headline">
+    Free training online money<br>products and <span class="ai-text">AI-assisted</span><br>product workflows
+  </h1>
+
+  <p class="sub-headline">
+    A free, step-by-step training where you'll learn the workflows behind creating onlinemoney using AI-powered tools all you need is guideing process.
+  </p>
+
+  <p class="disclaimer">
+    <strong>Disclaimer:</strong> This is an educational training only. Results vary based on individual effort, experience, and market conditions. No specific outcomes are promised or guaranteed.
+  </p>
+
+  <a href="#" class="cta-btn">SAVE ME FOR FREE </a>
+
+  <div class="features">
+    <div class="feature-item">
+      <span class="feature-icon">📋</span>
+      <span>100% Free Training</span>
+    </div>
+    <div class="feature-item">
+      <span class="feature-icon">💻</span>
+      <span>Fully Virtual</span>
+    </div>
+    <div class="feature-item">
+      <span class="feature-icon">👌👍</span>
+      <span>Beginner-Friendly for every one to start</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Generate animated bills and coins
+  const bg = document.getElementById('moneyBg');
+
+  const bills = [
+    { text: '$100', left: 8, delay: 0, dur: 4.5 },
+    { text: '$50', left: 22, delay: 1.2, dur: 5.2 },
+    { text: '$100', left: 38, delay: 2.8, dur: 4.0 },
+    { text: '$20', left: 55, delay: 0.5, dur: 5.8 },
+    { text: '$100', left: 70, delay: 3.5, dur: 4.8 },
+    { text: '$50', left: 85, delay: 1.8, dur: 5.0 },
+    { text: '$100', left: 15, delay: 4.0, dur: 4.2 },
+    { text: '$20', left: 48, delay: 2.0, dur: 5.5 },
+    { text: '$100', left: 92, delay: 3.0, dur: 4.6 },
+    { text: '$50', left: 62, delay: 0.8, dur: 5.3 },
+  ];
+
+  bills.forEach(b => {
+    const el = document.createElement('div');
+    el.className = 'bill';
+    el.textContent = b.text;
+    el.style.left = b.left + '%';
+    el.style.setProperty('--rot-start', (Math.random() * 40 - 20) + 'deg');
+    el.style.setProperty('--rot-end', (Math.random() * 80 - 40) + 'deg');
+    el.style.animationDuration = b.dur + 's';
+    el.style.animationDelay = b.delay + 's';
+    bg.appendChild(el);
+  });
+
+  const coins = [
+    { left: 5, delay: 1.5, dur: 3.8 },
+    { left: 32, delay: 0.3, dur: 4.4 },
+    { left: 60, delay: 2.5, dur: 3.5 },
+    { left: 78, delay: 1.0, dur: 4.9 },
+    { left: 45, delay: 3.2, dur: 3.9 },
+    { left: 90, delay: 0.6, dur: 4.2 },
+    { left: 18, delay: 2.9, dur: 3.6 },
+  ];
+
+  coins.forEach(c => {
+    const el = document.createElement('div');
+    el.className = 'coin';
+    el.textContent = '¢';
+    el.style.left = c.left + '%';
+    el.style.animationDuration = c.dur + 's';
+    el.style.animationDelay = c.delay + 's';
+    el.style.setProperty('--rot-start', '0deg');
+    el.style.setProperty('--rot-end', '360deg');
+    bg.appendChild(el);
+  });
+</script>
+
+</body>
+</html>
